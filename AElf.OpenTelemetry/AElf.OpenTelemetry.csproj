@@ -2,10 +2,10 @@
 
     <PropertyGroup>
         <PackageType>Contract</PackageType>
-        <PackageId>AElf.ContractTemplates</PackageId>
-        <Title>AElf Contract</Title>
+        <PackageId>AElf.OpenTelemetry</PackageId>
+        <Title>AElf OpenTelemetry</Title>
         <Authors>AElf</Authors>
-        <Description>Templates to use when creating an template for AElf Contract.</Description>
+        <Description>An OpenTelemetry module for use in ABP and Orleans framework.</Description>
         <PackageTags>abp;module;grains;orleans</PackageTags>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>

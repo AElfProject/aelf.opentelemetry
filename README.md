@@ -6,8 +6,9 @@ An OpenTelemetry module for use in ABP and Orleans framework.
 - [Getting Started](#getting-started)
   - [Installation](#installation)
   - [Configuration](#configuration)
+  - [Setup](#setup)
 - [Examples](#examples)
-  - [Example 1](#example-1)
+  - [AggregateExecutionTime](#aggregateexecutiontime)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -27,22 +28,63 @@ dotnet add package AElf.OpenTelemetry
 
 ### Configuration
 
-To configure the module, you need to add the following code to your `ConfigureServices` method in your `Startup` class:
+To configure your opentelemetry service name, version and collector's endpoint, you need to add the following to your appsettings.json file:
+
+```json
+{
+  "OpenTelemetry": {
+    "ServiceName": "YourServiceName",
+    "ServiceVersion": "YourServiceVersion",
+    "CollectorEndpoint": "http://localhost:4317"
+  }
+}
+```
+
+### Setup
+
+Add the following dependency to your project's Module class:
 
 ```cs
+using AElf.OpenTelemetry;
+
+[DependsOn(
+    typeof(OpenTelemetryModule)
+)]
+public class MyTemplateModule : AbpModule
 ```
+
+This will automatically register the OpenTelemetry module and setup your project for instrumentation.
 
 ## Examples
 
 Here are some examples of how to use this module.
 
-### Example 1
+### AggregateExecutionTime
 
-To create new context, simply run a query like this:
+AggregateExecutionTime is an attribute that can be used to measure the execution time of a class's method. It can be used in both ABP and Orleans framework, either on the class or method level.
 
+Class level:
 ```cs
-var context = new Context();
+using AElf.OpenTelemetry.ExecutionTime;
+
+[AggregateExecutionTime]
+public class MessageValidatorGrain : Grain
 ```
+
+Method level:
+```cs
+[AggregateExecutionTime]
+public Task<bool> IsOffensive(string message)
+```
+
+The attribute can also be used in ABP's services or controllers.
+```csharp
+[AggregateExecutionTime]
+public class AuthorAppService : ApplicationService
+```
+This will automatically measure the execution time of the method of the class and send the data to the OpenTelemetry collector.
+
+**Do note that for Controllers and Application Services in ABP, please make sure that the method you would like metrics for is a virtual method for the attribute to work.**
 
 ## Contributing
 

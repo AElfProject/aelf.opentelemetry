@@ -1,9 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <PackageType>Contract</PackageType>
+        <PackageId>AElf.ContractTemplates</PackageId>
+        <Title>AElf Contract</Title>
+        <Authors>AElf</Authors>
+        <Description>Templates to use when creating an template for AElf Contract.</Description>
+        <PackageTags>abp;module;grains;orleans</PackageTags>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RepositoryUrl>https://github.com/AElfProject/aelf.opentelemetry</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://github.com/AElfProject/aelf.opentelemetry</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,5 +23,15 @@
         <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
         <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
         <PackageReference Include="OpenTelemetry.AutoInstrumentation" Version="1.7.0" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <None Include="../README.md" Pack="true" PackagePath="" />
+        <None Include="../LICENSE" Pack="true" PackagePath="" />
     </ItemGroup>
 </Project>

@@ -46,7 +46,7 @@ var context = new Context();
 
 ## Contributing
 
-If you encounter a bug or have a feature request, please use the [Issue Tracker](https://github.com/AElfProject/aelf-dapp-factory/issues/new). The project is also open to contributions, so feel free to fork the project and open pull requests.
+If you encounter a bug or have a feature request, please use the [Issue Tracker](https://github.com/AElfProject/aelf.opentelemetry/issues/new). The project is also open to contributions, so feel free to fork the project and open pull requests.
 
 ## License
 

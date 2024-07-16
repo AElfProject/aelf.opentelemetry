@@ -18,6 +18,11 @@ An OpenTelemetry module for use in ABP and Orleans framework.
 
 This project is a module for ABP and Orleans framework to use OpenTelemetry. It provides a simple and fast way to integrate OpenTelemetry in ABP and Orleans framework.
 
+The module will provide instrumentation for both ASP and Orleans out of the box:
+1. [Orleans Observability](https://learn.microsoft.com/en-us/dotnet/orleans/host/monitoring/?pivots=orleans-7-0)
+2. [AspNetCore Observability](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.AspNetCore/README.md)
+3. [HttpClient Observability](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/src/OpenTelemetry.Instrumentation.Http/README.md)
+
 ## Getting Started
 
 ### Installation

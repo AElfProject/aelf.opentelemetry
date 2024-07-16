@@ -7,6 +7,7 @@ An OpenTelemetry module for use in ABP and Orleans framework.
   - [Installation](#installation)
   - [Configuration](#configuration)
   - [Setup](#setup)
+    - [Orleans](#orleans)
 - [Examples](#examples)
   - [AggregateExecutionTime](#aggregateexecutiontime)
 - [Contributing](#contributing)
@@ -54,6 +55,28 @@ public class MyTemplateModule : AbpModule
 ```
 
 This will automatically register the OpenTelemetry module and setup your project for instrumentation.
+
+#### Orleans
+
+For Orleans, you need to add the following to your SiloBuilder:
+
+```csharp
+hostBuilder.UseOrleans((context, siloBuilder) =>
+{
+    siloBuilder.AddActivityPropagation();
+});
+```
+
+Do the same for the Clientbuilder:
+
+```csharp
+hostBuilder.UseOrleansClient((context, clientBuilder) =>
+{
+    clientBuilder.AddActivityPropagation();
+});
+```
+
+This will automatically propagate the respective activities of the Orleans grain calls.
 
 ## Examples
 

@@ -10,6 +10,7 @@ An OpenTelemetry module for use in ABP and Orleans framework.
     - [Orleans](#orleans)
 - [Examples](#examples)
   - [AggregateExecutionTime](#aggregateexecutiontime)
+  - [Instrumentation](#instrumentation)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -108,6 +109,38 @@ public class AuthorAppService : ApplicationService
 This will automatically measure the execution time of the method of the class and send the data to the OpenTelemetry collector.
 
 **Do note that for Controllers and Application Services in ABP, please make sure that the method you would like metrics for is a virtual method for the attribute to work.**
+
+### Instrumentation
+
+For custom instrumentation, you can use the `IInstrumentationProvider` interface to create custom spans and metrics. Get the instrumentation provider from the DI container and use it to create spans and metrics.
+
+```csharp
+public class MessageValidatorGrain : Grain, IMessageValidator
+{
+    private readonly ILogger _logger;
+    private readonly ActivitySource _activitySource;
+    private static readonly string[] OffensiveWords = new string[] {"offensive", "bad", "rude"};
+
+    public MessageValidatorGrain(ILogger<MessageValidatorGrain> logger, IInstrumentationProvider instrumentationProvider)
+    {
+        _logger = logger;
+        _activitySource = instrumentationProvider.ActivitySource;
+    }
+
+    public Task<bool> IsOffensive(string message)
+    {
+        // This will start a custom trace for the IsOffensive method
+        using var myActivity = _activitySource.StartActivity($"{nameof(MessageValidatorGrain)}.IsOffensive");
+        
+        _logger.LogInformation("""
+                               IsOffensive message received: message = "{Message}"
+                               """,
+            message);
+        
+        return Task.FromResult(OffensiveWords.Any(message.Contains));
+    }
+}
+```
 
 ## Contributing
 

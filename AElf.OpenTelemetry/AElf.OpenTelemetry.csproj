@@ -7,7 +7,7 @@
         <Authors>AElf</Authors>
         <Description>An OpenTelemetry module for use in ABP and Orleans framework.</Description>
         <PackageTags>abp;module;grains;orleans</PackageTags>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFrameworks>net8.0;net7.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RepositoryUrl>https://github.com/AElfProject/aelf.opentelemetry</RepositoryUrl>

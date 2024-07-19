@@ -42,7 +42,7 @@ To configure your opentelemetry service name, version and collector's endpoint, 
   "OpenTelemetry": {
     "ServiceName": "YourServiceName",
     "ServiceVersion": "YourServiceVersion",
-    "CollectorEndpoint": "http://localhost:4317"
+    "CollectorEndpoint": "http://localhost:4315"
   }
 }
 ```

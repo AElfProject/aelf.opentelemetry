@@ -3,6 +3,7 @@ using AElf.OpenTelemetry.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Orleans;
 using Volo.Abp;
+using Volo.Abp.DependencyInjection;
 using Volo.Abp.Modularity;
 
 namespace AElf.OpenTelemetry;
@@ -41,5 +42,25 @@ public class OpenTelemetryModule : AbpModule
                                 }
                             }
                         });
+    }
+}
+
+public static class ServiceCollectionExtension
+{
+    public static void OnRegistered(this IServiceCollection services, Action<IOnServiceRegistredContext> registrationAction)
+    {
+        GetOrCreateRegistrationActionList(services).Add(registrationAction);
+    }
+    
+    private static ServiceRegistrationActionList GetOrCreateRegistrationActionList(IServiceCollection services)
+    {
+        var actionList = services.GetSingletonInstanceOrNull<IObjectAccessor<ServiceRegistrationActionList>>()?.Value;
+        if (actionList == null)
+        {
+            actionList = new ServiceRegistrationActionList();
+            services.AddObjectAccessor(actionList);
+        }
+
+        return actionList;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using Volo.Abp.DependencyInjection;
@@ -7,7 +8,7 @@ namespace AElf.OpenTelemetry.ExecutionTime;
 public class ExecutionTimeRecorder : ISingletonDependency, IInterceptor
 {
     private readonly Meter _meter;
-    private readonly Dictionary<string, Histogram<long>> _histogramMapCache = new Dictionary<string, Histogram<long>>();
+    private readonly ConcurrentDictionary<string, Histogram<long>> _histogramMapCache = new ConcurrentDictionary<string, Histogram<long>>();
 
     public ExecutionTimeRecorder(IInstrumentationProvider instrumentationProvider)
     {
@@ -41,7 +42,7 @@ public class ExecutionTimeRecorder : ISingletonDependency, IInterceptor
             description: "Histogram for method execution time",
             unit: "ms"
         );
-        _histogramMapCache.Add(key, histogram);
+        _histogramMapCache.TryAdd(key, histogram);
         return histogram;
     }
 }
